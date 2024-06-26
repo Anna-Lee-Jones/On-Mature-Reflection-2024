@@ -142,6 +142,9 @@ LEAFCLIP_minmax<-LEAFCLIP_ALL[! high.lim & ! low.lim]
 plot(LEAFCLIP_minmax, "spcmeansd")
 save(LEAFCLIP_minmax, file="~/OneDrive - Nexus365/01 OXFORD PHD/Field Work 2023/SVC_2023/all_bifor/BIFOR_LEAFCLIP_MINMAX.RData")
 
+#skip to here
+load(file = "~/Library/CloudStorage/OneDrive-Nexus365/01 OXFORD PHD/Field Work 2023/R_Data_Analysis/BIFOR_LEAFCLIP_MINMAX.RData")
+
 
 #means per array
 CO2_means<-aggregate(LEAFCLIP_minmax, LEAFCLIP_minmax$CO2, mean)
