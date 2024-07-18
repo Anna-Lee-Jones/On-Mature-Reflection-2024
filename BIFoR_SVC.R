@@ -140,7 +140,7 @@ high.lim<-apply(LEAFCLIP_ALL> 0.8,1, any) #any point with intensity of 1 is excl
 low.lim<-apply(LEAFCLIP_ALL, 1, max)<0.1#the maximum intensity should be at least 0.1 
 LEAFCLIP_minmax<-LEAFCLIP_ALL[! high.lim & ! low.lim]
 plot(LEAFCLIP_minmax, "spcmeansd")
-save(LEAFCLIP_minmax, file="~/OneDrive - Nexus365/01 OXFORD PHD/Field Work 2023/SVC_2023/all_bifor/BIFOR_LEAFCLIP_MINMAX.RData")
+save(LEAFCLIP_minmax, file="~/Library/CloudStorage/OneDrive-Nexus365/01 OXFORD PHD/Field Work 2023/R_Data_Analysis/BIFOR_LEAFCLIP_MINMAX.RData")
 
 #skip to here
 load(file = "~/Library/CloudStorage/OneDrive-Nexus365/01 OXFORD PHD/Field Work 2023/R_Data_Analysis/BIFOR_LEAFCLIP_MINMAX.RData")

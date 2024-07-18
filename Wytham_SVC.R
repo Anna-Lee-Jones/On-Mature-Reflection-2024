@@ -130,8 +130,10 @@ LEAFCLIP_ALL$ozone<-as.double(LEAFCLIP_ALL$ozone)
 LEAFCLIP_ALL$date_species<-str_c(LEAFCLIP_ALL$date,"_", LEAFCLIP_ALL$species)
 
 #save hyperspec data files 
-save(LEAFCLIP_ALL, file="~/OneDrive - Nexus365/01 OXFORD PHD/Field Work 2023/SVC_2023/all_wytham/LEAFCLIP_ALL.RData")
+save(LEAFCLIP_ALL, file="~/Library/CloudStorage/OneDrive-Nexus365/01 OXFORD PHD/Field Work 2023/R_Data_Analysis/WYTHAM_LEAFCLIP_minmax.RData")
 
+#skip to here
+load(file="~/Library/CloudStorage/OneDrive-Nexus365/01 OXFORD PHD/Field Work 2023/R_Data_Analysis/WYTHAM_LEAFCLIP_minmax.RData")
 #plotting all spectra just to see
 plot(LEAFCLIP_ALL, "spcmeansd")
 
