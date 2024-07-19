@@ -2,8 +2,9 @@
 #Load relevant packages
 library(hyperSpec)
 library(vegan)
+#set working directory to project location
 setwd("~/Library/CloudStorage/OneDrive-Nexus365/01 OXFORD PHD/Field Work 2023/R_Data_Analysis")
-
+#load the merged bifor and wytham hyperspectral library
 load(file = "~/Library/CloudStorage/OneDrive-Nexus365/01 OXFORD PHD/Field Work 2023/R_Data_Analysis/QWYTHAM_BIFOR_merged.RData")
 
 #PERMANOVA of whole spectral library to factors eg ozone
