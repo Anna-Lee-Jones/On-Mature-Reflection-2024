@@ -36,9 +36,17 @@ save(merged, file="~/Library/CloudStorage/OneDrive-Nexus365/01 OXFORD PHD/Field 
 
 #skip to here
 load(file = "~/Library/CloudStorage/OneDrive-Nexus365/01 OXFORD PHD/Field Work 2023/R_Data_Analysis/QWYTHAM_BIFOR_merged.RData")
+merged<-subset(merged,merged$ozone!="NA")
+#average per site/date
+merged$site_date<-paste(merged$site, merged$date)
+site_date_means<-aggregate(merged, merged$site_date, mean)
+#export as csv for ndsi analysis 
+write.csv(site_date_means,"~/Library/CloudStorage/OneDrive-Nexus365/01 OXFORD PHD/Field Work 2023/2023_ndsi/means.csv" )
+site_date_means$site_date
 
 
 site_means<-aggregate(merged, merged$site, mean)
+
 
 qplotspc(site_means)+aes(colour=site)+labs(x="Wavelength (nm)",y="% Reflectance",colour="Site")
 
