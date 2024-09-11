@@ -58,7 +58,7 @@ Qwytham_mean_SD<-as.t.df(apply(QWYTHAM,2, mean_pm_sd))
 head(Qwytham_mean_SD)
 
 #plot the mean spectra per site with ribbon of standard deviation. Manual scale used because two datasets.
-colours<-c("BiFOR"="#9c0315", "Wytham"="#200485")
+colours<-c("BiFOR"="#f35e5a", "Wytham"="#17b3b7")
 colours
 ggplot()+geom_ribbon (data=bifor_mean_SD, aes (x=.wavelength,ymin = mean.minus.sd, ymax = mean.plus.sd),fill = "#f2bbc170")+
   geom_line (data=bifor_mean_SD, aes (x=.wavelength,y = mean, color="BiFOR"))+

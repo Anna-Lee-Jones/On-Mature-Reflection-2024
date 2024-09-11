@@ -11,7 +11,6 @@ load(file = "~/Library/CloudStorage/OneDrive-Nexus365/01 OXFORD PHD/Field Work 2
 #remove any missing values in ozone
 merged_noNA<-subset(merged, ozone!="NA")
 is.na(merged_noNA$ozone)
-
 #permanova of spc to ozone
 adonis2(merged_noNA$spc~ozone,data=merged_noNA)#takes a little while to run
 #OUTPUT
@@ -82,3 +81,5 @@ adonis2(merged_noNA$spc~ozone*site*date,data=merged_noNA)#takes a little while t
 # Total           1841  14.6714 1.00000                   
 # ---
 #   Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+adonis2(merged_noNA$spc~ozone*date,data=merged_noNA)
