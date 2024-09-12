@@ -48,7 +48,7 @@ site_date_means$site_date
 site_means<-aggregate(merged, merged$site, mean)
 
 
-qplotspc(site_means)+aes(colour=site)+labs(x="Wavelength (nm)",y="% Reflectance",colour="Site")
+qplotspc(site_means[,,500:700])+aes(colour=site)+labs(x="Wavelength (nm)",y="% Reflectance",colour="Site")
 
 
 #calculate mean spectra per site and standard deviation
@@ -64,6 +64,7 @@ ggplot()+geom_ribbon (data=bifor_mean_SD, aes (x=.wavelength,ymin = mean.minus.s
   geom_line (data=bifor_mean_SD, aes (x=.wavelength,y = mean, color="BiFOR"))+
   geom_ribbon (data=Qwytham_mean_SD, aes (x=.wavelength,ymin = mean.minus.sd, ymax = mean.plus.sd),fill = "#b09fed70")+
   geom_line (data=Qwytham_mean_SD, aes (x=.wavelength,y = mean,color="Wytham"))+
-  scale_color_manual(values=colours)+labs(x="Wavelength (nm)",y="% Reflectance",colour="site" )
+  scale_color_manual(values=colours)+labs(x="Wavelength (nm)",y="% Reflectance",colour="site" )+
+  theme_()
 
 

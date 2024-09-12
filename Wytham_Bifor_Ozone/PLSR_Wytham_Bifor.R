@@ -8,6 +8,8 @@ library(pls)
 library(caret)
 library(ggplot2)
 library(ggpubr)
+library(cowplot)
+library(gridGraphics)
 #set working directory as R project location
 setwd("~/Library/CloudStorage/OneDrive-Nexus365/01 OXFORD PHD/Field Work 2023/R_Data_Analysis")
 #load  "merged", the hyperspectral library for Wytham and Bifor, oak only
@@ -52,19 +54,43 @@ set.seed(1)
 model <- plsr(ozone~spc, data=train_means, scale=TRUE, validation="CV")
 summary(model)
 #visualise cross validation plots
-validationplot(model)#Root mean square deviation, in units of predictor, more useful
+validationplot(model, main="", xlab="Number of components")#Root mean square deviation, in units of predictor, more useful
+RMSEP_plt<-recordPlot()
 validationplot(model, val.type="MSEP")#mean squared prediction error, not in same units as predictor
 #optimal number of comps looks to be 2
 scoreplot(model)
-loadingplot(model,comps=1:2, legendpos = "topright", labels="numbers", xlab="Wavelength (nm)")
-
+loadingplot(model,comps=1:2, legendpos = "topright", labels="numbers", xlab="Wavelength (nm)", ylab="Loading value")
+loading_plt<-recordPlot()
 #make predictions on test set
 test<-test_means$spc
 y_test<-test_means$ozone
 pcr_pred <- predict(model, test, ncomp=2)
 plot(y_test, pcr_pred, main="Test Dataset", xlab="Observed", ylab="PLS Predicted")
 abline(0,1,col="red")
+#make this plot a bit better?
+pred_df<-data.frame(x=y_test, y=pcr_pred)
+colnames(pred_df)<-c("Observed","PLS Predicted")
+
+ggscatter(pred_df, x="Observed", y="PLS Predicted", add="reg.line", color="red")+
+  stat_cor(label.x = 30, label.y = 50) +
+  stat_regline_equation(label.x = 30, label.y = 52)
+formula<-y~x
+test_plt<-ggplot(pred_df, aes(Observed,`PLS Predicted` ))+
+  geom_point(size = 3, col ='red')+
+  stat_smooth(formula= 'y~x',method='lm', linewidth=1, col='black')+
+  stat_regline_equation(
+    aes(label =  paste(..eq.label.., ..adj.rr.label.., sep = "~~~~")),
+    formula = formula, label.x=30,label.y=50
+  ) +
+  theme_minimal(base_size = 14)+ labs(x="Observed ozone concentration (ppb)",y="Predicted ozone concentration (ppb)")
+test_plt
 #evaluate the plsr model's performance for test data
 pls_eval<-data.frame(obs=y_test, pred=pcr_pred[,1,1])
 defaultSummary(pls_eval)
+
+#multi plot
+RH<-plot_grid(RMSEP_plt, loading_plt, labels="AUTO", ncol=1, rel_heights = c(1,1))
+RH
+plot_grid(RMSEP_plt, labels="AUTO", ncol=1, rel_heights = c(1,1))
+plot_grid(RH, test_plt, labels=c('','C'), ncol=2)
 

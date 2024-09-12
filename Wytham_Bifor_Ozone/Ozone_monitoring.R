@@ -12,7 +12,8 @@ Ozone_Results$`Date Finished`<-as.Date(Ozone_Results$`Date Finished`)
 #time series plot of BIFOR vs Wytham ozone 
 ggplot(Ozone_Results, aes(x=`Date Finished`, y=`Ozone Concentration (ppb)`, col=Site))+
   geom_line()+labs(x="Date", y=expression("Mean "*O[3]*" Concentration (ppb)"))+
-  geom_errorbar(aes(ymax=`Uncertainty Max`, ymin=`Uncertainty Min`))
+  geom_errorbar(aes(ymax=`Uncertainty Max`, ymin=`Uncertainty Min`))+
+  theme_light()
 #should do some stats to compare the ozone of two sites, TIme interval is variable
 #so Mann Whitney U Test probably most appropriate rather than specifically a time series test
 wilcox.test(`Ozone Concentration (ppb)`~ Site, data=Ozone_Results)
