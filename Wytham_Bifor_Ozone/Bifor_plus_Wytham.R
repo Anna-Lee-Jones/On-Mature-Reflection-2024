@@ -37,6 +37,7 @@ save(merged, file="~/Library/CloudStorage/OneDrive-Nexus365/01 OXFORD PHD/Field 
 #skip to here
 load(file = "~/Library/CloudStorage/OneDrive-Nexus365/01 OXFORD PHD/Field Work 2023/R_Data_Analysis/QWYTHAM_BIFOR_merged.RData")
 merged<-subset(merged,merged$ozone!="NA")
+
 #average per site/date
 merged$site_date<-paste(merged$site, merged$date)
 site_date_means<-aggregate(merged, merged$site_date, mean)
@@ -58,13 +59,12 @@ Qwytham_mean_SD<-as.t.df(apply(QWYTHAM,2, mean_pm_sd))
 head(Qwytham_mean_SD)
 
 #plot the mean spectra per site with ribbon of standard deviation. Manual scale used because two datasets.
-colours<-c("BiFOR"="#f35e5a", "Wytham"="#17b3b7")
+colours<-c("BIFoR"="#f35e5a", "Wytham"="#17b3b7")
 colours
 ggplot()+geom_ribbon (data=bifor_mean_SD, aes (x=.wavelength,ymin = mean.minus.sd, ymax = mean.plus.sd),fill = "#f2bbc170")+
-  geom_line (data=bifor_mean_SD, aes (x=.wavelength,y = mean, color="BiFOR"))+
+  geom_line (data=bifor_mean_SD, aes (x=.wavelength,y = mean, color="BIFoR"))+
   geom_ribbon (data=Qwytham_mean_SD, aes (x=.wavelength,ymin = mean.minus.sd, ymax = mean.plus.sd),fill = "#b09fed70")+
   geom_line (data=Qwytham_mean_SD, aes (x=.wavelength,y = mean,color="Wytham"))+
-  scale_color_manual(values=colours)+labs(x="Wavelength (nm)",y="% Reflectance",colour="site" )+
-  theme_()
+  scale_color_manual(values=colours)+labs(x="Wavelength (nm)",y="% Reflectance",colour="Site" )+ theme_minimal()
 
 

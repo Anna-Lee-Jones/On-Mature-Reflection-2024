@@ -5,6 +5,7 @@ library(stats)
 library(FactoMineR)
 library(factoextra)
 library(ggpubr)
+library(lubridate)
 #setwd
 setwd("~/Library/CloudStorage/OneDrive-Nexus365/01 OXFORD PHD/Field Work 2023/R_Data_Analysis")
 #load merged hyperspectral library
@@ -71,6 +72,12 @@ fviz_pca_ind(pca, geom.ind = "point",
              palette = 'all',
              addEllipses = FALSE, ellipse.type = "convex",
              legend.title = "Date")+ggtitle("")
+labsdf$yday<-yday(labsdf$DATE)
+fviz_pca_ind(pca, geom.ind = "point",
+             col.ind = labsdf$yday,# color by date
+             palette = 'all',
+             addEllipses = FALSE, ellipse.type = "convex",
+             legend.title = "Day of Year")+ggtitle("")+scale_color_continuous(type = "viridis")
 
 
 fviz_pca_ind(pca, geom.ind = "point",axes = c(1,2),

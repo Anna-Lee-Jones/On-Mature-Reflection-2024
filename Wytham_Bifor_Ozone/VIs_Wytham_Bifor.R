@@ -6,6 +6,7 @@ library(stats)
 library(ggpubr)
 library(grid)
 library(BayesFactor)
+library(lubridate)
 #set working directory
 setwd("~/Library/CloudStorage/OneDrive-Nexus365/01 OXFORD PHD/Field Work 2023/R_Data_Analysis")
 #load merged hyperspectral library (QWytham and BiFOR)
@@ -99,3 +100,8 @@ cor.test(means_VI$ozone,means_VI$OZDI, method=c("pearson"))
 #   cor 
 # -0.3006264
 
+
+
+means_VI$yday<-yday(means_VI$date)
+cor.test(means_VI$yday,means_VI$MCARI, method=c("pearson"))
+t.test(MCARI ~ site, data = means_VI)
