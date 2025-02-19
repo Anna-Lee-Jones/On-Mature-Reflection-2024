@@ -23,6 +23,7 @@ LEAFCLIP_ALL@data$site<-"BIFOR"
 LEAFCLIP_ALL@data$date<-""
 LEAFCLIP_ALL@data$array<-""
 LEAFCLIP_ALL@data$ozone<-""
+LEAFCLIP_ALL@data$cum_ozone<-""
 LEAFCLIP_ALL@data$tree<-""
 LEAFCLIP_ALL@data$CO2<-""
 #assign date
@@ -123,6 +124,29 @@ for (value in 1:length){
     LEAFCLIP_ALL[value]$ozone<-27.23
   }
 }
+
+#assign cumulative ozone conc prior to reflectance measurement
+#assign date
+for (value in 1:length){
+  LEAFCLIP_ALL[value]$sample<-toupper(LEAFCLIP_ALL[value]$sample)
+  if (grepl("2023-06-16",LEAFCLIP_ALL[value]$date)){
+    LEAFCLIP_ALL[value]$cum_ozone<-NA
+  }else if (grepl("2023-06-22",LEAFCLIP_ALL[value]$date)) {
+    LEAFCLIP_ALL[value]$cum_ozone<-NA
+  }else if (grepl("2023-07-05",LEAFCLIP_ALL[value]$date)) {
+    LEAFCLIP_ALL[value]$cum_ozone<-12297.29
+  }else if (grepl("2023-07-25",LEAFCLIP_ALL[value]$date)) {
+    LEAFCLIP_ALL[value]$cum_ozone<-31685.01
+  }else if (grepl("2023-08-10",LEAFCLIP_ALL[value]$date)) {
+    LEAFCLIP_ALL[value]$cum_ozone<-45202.35
+  }else if (grepl("2023-08-24",LEAFCLIP_ALL[value]$date)) {
+    LEAFCLIP_ALL[value]$cum_ozone<-59256.53
+  }else if (grepl("2023-09-13",LEAFCLIP_ALL[value]$date)) {
+    LEAFCLIP_ALL[value]$cum_ozone<-78999.58
+  }else if (grepl("2023-10-06",LEAFCLIP_ALL[value]$date)) {
+    LEAFCLIP_ALL[value]$cum_ozone<-94033.30
+  }
+}
 #assign a variable that combines array and month
 LEAFCLIP_ALL$date_array<-str_c(LEAFCLIP_ALL$date,"_", LEAFCLIP_ALL$array)
 
@@ -141,7 +165,9 @@ low.lim<-apply(LEAFCLIP_ALL, 1, max)<0.1#the maximum intensity should be at leas
 LEAFCLIP_minmax<-LEAFCLIP_ALL[! high.lim & ! low.lim]
 plot(LEAFCLIP_minmax, "spcmeansd")
 save(LEAFCLIP_minmax, file="~/Library/CloudStorage/OneDrive-Nexus365/01 OXFORD PHD/Field Work 2023/R_Data_Analysis/BIFOR_LEAFCLIP_MINMAX.RData")
-
+write.txt.wide(LEAFCLIP_minmax,file="~/Library/CloudStorage/OneDrive-Nexus365/01 OXFORD PHD/Field Work 2023/R_Data_Analysis/BIFOR_LEAFCLIP_MINMAX.txt")
+write.txt.long(LEAFCLIP_minmax,file="~/Library/CloudStorage/OneDrive-Nexus365/01 OXFORD PHD/Field Work 2023/R_Data_Analysis/BIFOR_LEAFCLIP_MINMAX.txt")
+test<-read_txt_long(file="~/Library/CloudStorage/OneDrive-Nexus365/01 OXFORD PHD/Field Work 2023/R_Data_Analysis/BIFOR_LEAFCLIP_MINMAX.txt")
 #skip to here
 load(file = "~/Library/CloudStorage/OneDrive-Nexus365/01 OXFORD PHD/Field Work 2023/R_Data_Analysis/BIFOR_LEAFCLIP_MINMAX.RData")
 

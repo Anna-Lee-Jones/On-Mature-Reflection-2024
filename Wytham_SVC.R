@@ -23,6 +23,7 @@ LEAFCLIP_ALL$sample
 LEAFCLIP_ALL@data$site<-"WYTHAM"
 LEAFCLIP_ALL@data$date<-""
 LEAFCLIP_ALL@data$ozone<-""
+LEAFCLIP_ALL@data$cum_ozone<-""
 LEAFCLIP_ALL@data$tree<-""
 LEAFCLIP_ALL@data$species<-""
 #assign date
@@ -40,8 +41,11 @@ for (value in 1:length){
     LEAFCLIP_ALL[value]$date<-"2023-09-22"
   }else if (grepl("X270623_*",LEAFCLIP_ALL[value]$sample)) {
     LEAFCLIP_ALL[value]$date<-"2023-06-27"
+  }else if (grepl("X121023_*",LEAFCLIP_ALL[value]$sample)) {
+    LEAFCLIP_ALL[value]$date<-"2023-10-12"
   }
 }
+
 #convert strings to date objects
 LEAFCLIP_ALL$date<-as.Date(LEAFCLIP_ALL$date)
 
@@ -126,6 +130,24 @@ for (value in 1:length){
 }
 
 LEAFCLIP_ALL$ozone<-as.double(LEAFCLIP_ALL$ozone)
+#assign cumulative ozone conc prior to reflectance measurement
+#assign date
+for (value in 1:length){
+  LEAFCLIP_ALL[value]$date<-toupper(LEAFCLIP_ALL[value]$date)
+  if (grepl("2023-08-01",LEAFCLIP_ALL[value]$date)){
+    LEAFCLIP_ALL[value]$cum_ozone<-79195.11
+  }else if (grepl("2023-09-04",LEAFCLIP_ALL[value]$date)) {
+    LEAFCLIP_ALL[value]$cum_ozone<-121438.93
+  }else if (grepl("2023-08-09",LEAFCLIP_ALL[value]$date)) {
+    LEAFCLIP_ALL[value]$cum_ozone<-121438.93
+  }else if (grepl("2023-07-12",LEAFCLIP_ALL[value]$date)) {
+    LEAFCLIP_ALL[value]$cum_ozone<-58973.32
+  }else if (grepl("2023-09-22",LEAFCLIP_ALL[value]$date)) {
+    LEAFCLIP_ALL[value]$cum_ozone<-148396.2613
+  }else if (grepl("2023-06-27",LEAFCLIP_ALL[value]$date)) {
+    LEAFCLIP_ALL[value]$cum_ozone<-40082.21
+  }
+}
 #assign a variable that combines tree and month
 LEAFCLIP_ALL$date_species<-str_c(LEAFCLIP_ALL$date,"_", LEAFCLIP_ALL$species)
 
